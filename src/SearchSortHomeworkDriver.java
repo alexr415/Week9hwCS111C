@@ -16,22 +16,24 @@ public class SearchSortHomeworkDriver {
 		}
 		return correctPairs/ (array.length-1);
 	}
-	
+
+	public static double sortedness(Node<Comparable> node, double correctPairs, double size){
+		if(node.next==null){
+			return correctPairs/size;
+		}
+		size++;
+		if(node.data.compareTo(node.next.data)<=0){
+			correctPairs++;
+		}
+		return sortedness(node.next,correctPairs,size);
+	}
 	public static double sortedness(Node<Comparable> node) {
 		if(node==null||node.next==null){
 			return 1;
 		}
+
 		Node<Comparable> temp = node;
-		double size =0;
-		double correctPairs=0;
-		while(temp.next!=null){
-			size++;
-			if(temp.data.compareTo(temp.next.data)<=0){
-				correctPairs++;
-			}
-			temp=temp.next;
-		}
-		return correctPairs/size;
+		return sortedness(temp,0,0);
 	}
 
 	private static boolean allTestsPassed = true;
